@@ -1,4 +1,4 @@
-// project Arne Van Gorp
+// project Arne Van Gorp r1035499
 // check if the website is real + test if login works 
 describe('checking if its real', () => {
   beforeEach(() => {
