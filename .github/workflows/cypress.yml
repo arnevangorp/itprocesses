@@ -2,7 +2,8 @@ name: Cypress Tests
 on: 
   push:
   schedule:
-    - cron: '0 12 * * *'  # Elke dag om 12:00 UTC
+    - cron: '0 12 * * *'   # Elke dag om 12:00 UTC (14:00 Belgisch)
+    - cron: '30 13 * * *'  # Elke dag om 13:30 UTC (15:30 Belgisch)
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
