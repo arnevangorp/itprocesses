@@ -10,7 +10,7 @@ describe('checking if its real', () => {
   // Test 1: Controleer dat de cataloguspagina de juiste producten toont
   it('shows products on catalog page', () => {
     cy.visit("https://r1035499-realbeans.myshopify.com/collections/all");
-  
+
     // Check dat Blended coffee 5kg aanwezig is
     cy.get('#product-card-AVld1aElqMERtRmFyR__product-card > .product-card__content > .user-select-text > .spacing-style > p')
       .contains("Blended coffee 5kg");
@@ -60,8 +60,8 @@ describe('checking if its real', () => {
       .should('not.contain', 'Roasted coffee beans 5kg');
   });
 
-  // Test 3: Controleer dat de productdetailpagina de juiste beschrijving, prijs en varianten toont
-  it('Product detail pages display the right descriptions, prices, and imagenames.', () => {
+  // Test 3a: Controleer dat de productdetailpagina de juiste beschrijving en prijs toont
+  it('Product detail page shows correct description and price', () => {
     cy.visit("https://r1035499-realbeans.myshopify.com/collections/all");
 
     // Klik op het product om naar de detailpagina te gaan
@@ -79,18 +79,28 @@ describe('checking if its real', () => {
     // Check dat de prijs correct is
     cy.get('.rte > [ref="priceContainer"] > .price__regular > .price')
       .contains('$55.00');
+  });
 
-    // Check dat alle varianten klikbaar zijn
+  // Test 3b: Controleer dat alle varianten klikbaar zijn op de productdetailpagina
+  it('Product detail page variants are clickable', () => {
+    cy.visit("https://r1035499-realbeans.myshopify.com/products/blended-coffee-5kg");
     cy.wait(1000);
+
+    // Klik op elke variant
     cy.contains('label', 'Excelsa').click();
     cy.wait(1000);
     cy.contains('label', 'Arabica').click();
     cy.wait(1000);
     cy.contains('label', 'Liberica').click();
+  });
+
+  // Test 3c: Controleer dat de add to cart knop werkt
+  it('Product detail page add to cart works', () => {
+    cy.visit("https://r1035499-realbeans.myshopify.com/products/blended-coffee-5kg");
     cy.wait(1000);
 
     // Klik op "Add to cart"
-    cy.get('[data-testid="standalone-add-to-cart"]').click;
+    cy.get('[data-testid="standalone-add-to-cart"]').click();
   });
 
   // Test 4: Controleer dat de About pagina de juiste historische tekst toont
@@ -108,6 +118,9 @@ describe('checking if its real', () => {
 
     // Check dat de intro tekst correct is
     cy.get('.text-block--AcVlRWUFCOHpJMkNzZ__text_YLPk4p').contains('Browse our latest products');
+
+    // Check dat de "Shop all" knop aanwezig is
+    cy.contains('a', 'Shop all').should('be.visible');
 
     // Check dat het eerste product zichtbaar is en de juiste naam heeft
     cy.get('#product-card-AQ2ZhK21HL24yOHZze__static-product-card > .product-card__content > .card-gallery > .contents > slideshow-component > slideshow-container > slideshow-slides > [aria-hidden="false"] > .product-media > .product-media__image')
