@@ -1,4 +1,5 @@
-// check if the website is real + test if login works
+// project Arne Van Gorp
+// check if the website is real + test if login works 
 describe('checking if its real', () => {
   beforeEach(() => {
     cy.visit("https://r1035499-realbeans.myshopify.com/");
